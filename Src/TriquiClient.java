@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Client;
+package Src;
 
-import Server.IUserManager;
+
 import java.rmi.Naming;
 /**
  *
