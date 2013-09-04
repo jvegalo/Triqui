@@ -4,57 +4,17 @@
  */
 package Src;
 
+import java.rmi.*;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
 
-public interface ITriquiGame {
+public interface ITriquiGame extends Remote {
     /*
      * Inicia un juego
      */
-    public void     Start();
+    public void     Start() throws RemoteException;
     
-    /*
-     * Realiza una jugada y alterna el turno.
-     * retorna verdadero si la jugada es válida
-     * retorna falso si la jugada es inválida
-     * 
-     * Esta son las posiciones que se utilizarán.
-     * 
-     * [1] [2] [3]
-     * [4] [5] [6]
-     * [7] [8] [9]
-     */
-    public boolean  Play(int pos);
-    
-    
-    
-    
-    
-    /*
-     * Devuelve el simbolo del jugador actual (X o O)
-     */
-    public String   Player();
-    
-    
-    
-    
-    
-    
-    /*
-     * Devuelve una versión texto del tablero del triqui
-     */
-    public String   Board();
-    
-    
-    
-    
-    
-    
-    
-    /*
-     * verifica si hubo ganador, retorna el Simbolo del ganador, o "no hubo"
-     */
-    public String   TestWinner();
 }
