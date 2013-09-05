@@ -10,8 +10,8 @@ import java.rmi.*;
  * @author juanj24
  */
 public interface IUserManager extends Remote {
-    public void registrar(ITriquiPlayer j, String nick) throws RemoteException;
-    public void salir(String nick) throws RemoteException;
-    public String[] listar() throws RemoteException;
-    public void pedirJuego(String pedidor, String pedido) throws RemoteException, Exception;
+    public void registerPlayer(ITriquiPlayer player, String name) throws RemoteException;
+    public void exit(String name) throws RemoteException;
+    public String[] listReadyPlayers() throws RemoteException;
+    public void requestGame(String petitioner, String requested) throws RemoteException, Exception;
 }

@@ -12,13 +12,13 @@ import java.rmi.Naming;
  */
 public class TriquiServer {
     public static void main(String[] args) {
-		IUserManager gestor = null;
+		IUserManager manager = null;
 		try {
-			gestor = new UserManager();
-			Naming.bind("triqui", gestor);
-			System.out.println("Servidor listo.");
+			manager = new UserManager();
+			Naming.bind("triqui", manager);
+			System.out.println("Server ready.");
 		} catch(Exception e) {
-			System.out.println("No se pudo iniciar el servidor.");
+			System.out.println("Failed start the server.");
 		}
 	}
 }

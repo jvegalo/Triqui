@@ -12,9 +12,7 @@ import java.rmi.*;
  */
 
 public interface ITriquiGame extends Remote {
-    /*
-     * Inicia un juego
-     */
-    public void     Start() throws RemoteException;
+    
+    public void     start() throws RemoteException;
     
 }

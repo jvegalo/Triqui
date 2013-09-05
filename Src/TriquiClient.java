@@ -11,40 +11,41 @@ import java.rmi.Naming;
  * @author juanj24
  */
 public class TriquiClient {
-    public static void imprimirUso() {
-		System.out.println("\nUso:");
-		System.out.println("  java TriquiClient host [nick]");
-		System.out.println("\nhost => localizacion del TriquiServer.");
-		System.out.println("nick => nick para usar en el juego.");
-		System.out.println("\nSi no se indica el nick, se pedira al comienzo del juego.\n");
+    
+    public static void showUse() {
+		System.out.println("\nUse:");
+		System.out.println("  java TriquiClient host [name]");
+		System.out.println("\nhost => location of TriquiServer.");
+		System.out.println("name => name for use in the game.");
+		System.out.println("\nIf name is not indicated, it will ask to start the game.\n");
 	}
 
 	public static void main(String[] args) {
-		String host = null, nick = null;
+		String host = null, name = null;
 		if (args.length >= 1) {
-			String opcion = args[0];
-			if (opcion.equals("-h")) {
-				imprimirUso();
+			String option = args[0];
+			if (option.equals("-h")) {
+				showUse();
 				System.exit(0);
 			}
-			host = opcion;
+			host = option;
 			if (args.length >= 2)
-				nick = args[1];
+				name = args[1];
 		} else {
-			imprimirUso();
+			showUse();
 			System.exit(0);
 		}
-		          IUserManager gestor = null;
-		ITriquiPlayer jug = null;
+		          IUserManager manager = null;
+		ITriquiPlayer player = null;
 		try {
-			gestor = (IUserManager)Naming.lookup("rmi://" + host + "/triqui");			
-			if (nick == null) {
-				nick = Reader.getInstance().read();
-				System.out.println("Ingresa tu nick:");
+			manager = (IUserManager)Naming.lookup("rmi://" + host + "/triqui");			
+			if (name == null) {
+				name = Reader.getInstance().read();
+				System.out.println("Enter your name:");
 			}
-			jug = new TriquiPlayer(nick, gestor);
+			player = new TriquiPlayer(name, manager);
 		} catch(Exception e) {
-			System.out.println("No se pudo inicializar el cliente");
+			System.out.println("Failed to initialize the client");
 			System.out.println(e.getMessage());
 		}
 	}

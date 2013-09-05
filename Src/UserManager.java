@@ -14,49 +14,49 @@ import java.util.Hashtable;
  */
 public class UserManager extends UnicastRemoteObject implements IUserManager{
     
-	private Hashtable<String,ITriquiPlayer> jugadores;
+	private Hashtable<String,ITriquiPlayer> players;
 	
 	public UserManager() throws RemoteException{
-		jugadores = new Hashtable<String,ITriquiPlayer>();
+		players = new Hashtable<String,ITriquiPlayer>();
 	}
 	
 	@Override
-	public String[] listar() throws RemoteException {
-		String[] contenido = new String[jugadores.size()];
-		Enumeration<String> valores = jugadores.keys();
-		for (int i = 0; valores.hasMoreElements(); i++) {
-			contenido[i] = valores.nextElement();
+	public String[] listReadyPlayers() throws RemoteException {
+		String[] content = new String[players.size()];
+		Enumeration<String> values = players.keys();
+		for (int i = 0; values.hasMoreElements(); i++) {
+			content[i] = values.nextElement();
 		}
-		return contenido;
+		return content;
 	}
 
 	@Override
-	public void pedirJuego(String pedidor, String pedido) throws RemoteException, Exception {
-		System.out.println(pedidor + " quiere jugar con " + pedido);
-		ITriquiPlayer j = jugadores.get(pedido);
-		if (j == null)
-			throw new Exception("El jugador no existe.");
+	public void requestGame(String petitioner, String requested) throws RemoteException, Exception {
+		System.out.println(petitioner + " wants to play with " + requested);
+		ITriquiPlayer player = players.get(requested);
+		if (player == null)
+			throw new Exception("The player does not exist.");
 		ITriquiGame triqui = null;
-		if(j.aceptarJuego(pedidor)){
-			System.out.println("Juego aceptado.");
-			triqui = new TriquiGame(jugadores.get(pedidor), jugadores.get(pedido));
-			salir(pedido); salir(pedidor);
-			triqui.comenzar();
+		if(player.acceptGame(petitioner)){
+			System.out.println("Game accepted.");
+			triqui = new TriquiGame(players.get(petitioner), players.get(requested));
+			exit(requested); exit(petitioner);
+			triqui.start();
 		} else {
-			throw new Exception("La solicitud fue rechazada.");
+			throw new Exception("The application was rejected.");
 		}
 	}
 
 	@Override
-	public void registrar(ITriquiPlayer j, String nick) throws RemoteException {
-		jugadores.put(nick, j);	
-		System.out.println("Se ha registrado " + nick + ".");
+	public void registerPlayer(ITriquiPlayer player, String name) throws RemoteException {
+		players.put(name, player);	
+		System.out.println("has been register " + name + ".");
 	}
 
 	@Override
-	public void salir(String nick) throws RemoteException {
-		jugadores.remove(nick);
-		System.out.println("Se ha salido " + nick + ".");
+	public void exit(String name) throws RemoteException {
+		players.remove(name);
+		System.out.println("Has exited " + name + ".");
 		
 	}
 
