@@ -5,9 +5,10 @@
 package Src;
 
 import java.rmi.*;
-//import java.rmi.server.*;
+import java.rmi.server.*;
 
-public class TriquiGame implements ITriquiGame {
+@SuppressWarnings("serial")
+public class TriquiGame extends UnicastRemoteObject implements ITriquiGame {
 
     public static final int N = 0;
     public static final int X = 1;
